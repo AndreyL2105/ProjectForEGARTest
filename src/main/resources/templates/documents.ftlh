@@ -18,12 +18,12 @@
 </table>
 <#list documents as document>
     <div>
-        <p><b>${document.number}</b> ${document.name} ${document.dateOfCreation}</p>
+        <p><b>${document.number}</b> ${document.name} ${document.dateOfCreation} <a href="/page-update/${document.id}">Обновить</a></p>
     </div>
 </#list>
 <hr>
 <form>
-    <button formaction="/document/">Создать новый документ</button>
+    <button formaction="/page-create">Создать новый документ</button>
 </form>
 </body>
 </html>

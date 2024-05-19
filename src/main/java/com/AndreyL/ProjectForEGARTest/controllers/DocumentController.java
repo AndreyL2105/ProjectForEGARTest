@@ -21,15 +21,30 @@ public class DocumentController {
         return "documents";
     }
 
-    @GetMapping("/document/")
+    @GetMapping("/page-create")
     public String documentsInfo(){
-        return "document-creation";
+        documentService.testSearch();
+        return "page-create";
+    }
+
+    @GetMapping("/page-update/{id}")
+    public String documentsInfoUpdate(@PathVariable("id") Long id, Model model){
+        Document byId = documentService.findById(id);
+        model.addAttribute("updateDoc", byId);
+        return "page-update";
     }
 
     @PostMapping("/document/create")
     public String createDocument(Document document){
         document.setDateOfCreation(LocalDateTime.now());
         documentService.saveDocument(document);
+        return "redirect:/";
+    }
+
+    @PostMapping("/document/update/{id}")
+    public String updateDocument(@PathVariable("id") Long id, Document document){
+        document.setDateOfCreation(LocalDateTime.now());
+        documentService.updateDocumentByID(document, id);
         return "redirect:/";
     }
 
