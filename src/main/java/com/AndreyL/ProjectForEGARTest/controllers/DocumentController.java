@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @Controller
 @RequiredArgsConstructor
 public class DocumentController {
@@ -14,19 +16,19 @@ public class DocumentController {
 
 //Или вернет весь список если number нет или вернет отсортированный
     @GetMapping("/")
-    public String documents(@RequestParam(name = "number", required = false) String number, Model model){
-        model.addAttribute("documents", documentService.listDocuments(number));
+    public String documents(Model model){
+        model.addAttribute("documents", documentService.listDocuments());
         return "documents";
     }
 
-    @GetMapping("/document/{id}")
-    public String documentsInfo(@PathVariable Long id, Model model){
-        model.addAttribute("documents", documentService.getDocumentById(id));
-        return "documents";
+    @GetMapping("/document/")
+    public String documentsInfo(){
+        return "document-creation";
     }
 
     @PostMapping("/document/create")
     public String createDocument(Document document){
+        document.setDateOfCreation(LocalDateTime.now());
         documentService.saveDocument(document);
         return "redirect:/";
     }

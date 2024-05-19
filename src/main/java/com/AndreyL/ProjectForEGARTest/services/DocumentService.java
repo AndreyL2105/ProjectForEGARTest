@@ -8,12 +8,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-
 @RequiredArgsConstructor
 public class DocumentService {
     private final DocumentRepository documentRepository;
-    public List<Document> listDocuments(String number){
-        if (number != null) documentRepository.findByNumber(number);
+    public List<Document> listDocuments(){
         return documentRepository.findAll();
     }
     public void saveDocument(Document document){
